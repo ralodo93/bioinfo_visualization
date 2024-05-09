@@ -1,0 +1,94 @@
+---
+title: "Feature Plot Basic"
+output: html_notebook
+---
+
+```{r}
+library(ggplot2)
+
+# generate random x and y numeric variables (rnorm function)
+set.seed(1234)
+df <- data.frame(x = rnorm(100,4,5), y =rnorm(100,8,40))
+```
+
+Basic Feature Plot
+```{r, fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) + 
+  geom_point() # add points
+```
+
+```{r fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(color = "firebrick")+ # static color
+  xlab("Title of X axis")+ # x title
+  ylab("Title of y axis") # y title
+```
+
+```{r fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(aes(color = x))+ # dynamic color
+  xlab("Title of X axis")+
+  ylab("Title of y axis")
+```
+
+https://stackoverflow.com/questions/70942728/understanding-color-scales-in-ggplot2
+
+
+```{r fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(aes(color = x))+ # dynamic color
+  xlab("Title of X axis")+
+  ylab("Title of y axis")+
+  scale_color_continuous() # default function
+```
+
+```{r fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(aes(color = x))+ # dynamic color
+  xlab("Title of X axis")+
+  ylab("Title of y axis")+
+  scale_color_gradient(low = "skyblue", high = "purple")
+```
+
+```{r fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(aes(color = x))+ # dynamic color
+  xlab("Title of X axis")+
+  ylab("Title of y axis")+
+  scale_color_gradient2(low = "firebrick", high = "darkblue", mid = "white", midpoint = 0)
+```
+
+```{r fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(aes(color = x))+ # dynamic color
+  xlab("Title of X axis")+
+  ylab("Title of y axis")+
+  scale_color_gradientn(colours = c("yellow", "green","firebrick","salmon","gold","purple"))
+```
+
+```{r fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(aes(color = x))+ # dynamic color
+  xlab("Title of X axis")+
+  ylab("Title of y axis")+
+  scale_color_distiller()
+```
+
+```{r fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(aes(color = y), size = 5)+
+  xlab("Title of X axis")+
+  ylab("Title of y axis")+
+  scale_color_gradient(low = "darkgreen", high = "purple")
+```
+
+```{r fig.height=6, fig.width=10}
+df$x <- abs(df$x)
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(aes(color = y, size = x))+ # dynamic color, dynamic shape
+  xlab("Title of X axis")+
+  ylab("Title of y axis")+
+  scale_color_gradient(low = "darkgreen", high = "purple")
+```
+
