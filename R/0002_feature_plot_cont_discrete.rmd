@@ -1,0 +1,46 @@
+---
+title: "Feature Plot Basic II"
+output: html_notebook
+---
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# generate random x and y numeric variables (rnorm function)
+set.seed(1234)
+df <- data.frame(x = rnorm(100,4,5), y = sample(letters[1:10], 100, replace = T))
+```
+
+Basic Feature Plot
+```{r, fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) + 
+  geom_point() # add points
+```
+
+```{r, fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) + 
+  geom_point(aes(color = y))
+```
+
+```{r fig.height=6, fig.width=10}
+set.seed(1234)
+new_levels <- sample(letters[1:10], 10)
+new_levels
+df_order <- df %>% mutate(y = factor(y, levels = new_levels))
+ggplot(df_order, aes(x = x, y = y)) + 
+  geom_point(aes(color = y))
+```
+
+```{r fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) + 
+  geom_point(aes(color = y))+
+  facet_wrap(~y)
+```
+
+```{r fig.height=6, fig.width=10}
+ggplot(df, aes(x = x, y = y)) + 
+  geom_point(aes(color = y))+
+  facet_wrap(~y, scales = "free")
+```
+
